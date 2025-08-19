@@ -1,0 +1,50 @@
+#env
+**/.env
+
+
+# Terraform
+terraform/.terraform/
+terraform/*.tfstate
+terraform/*.tfstate.backup
+terraform/*.tfstate.*.backup
+terraform/.terraform.lock.hcl
+terraform/keys/azure_id_rsa
+terraform/keys/azure_id_rsa.pub
+
+
+# Django / Frontend dependencies
+app/node_modules
+app/dist
+
+# IDEs and editors
+app/.idea
+app/.project
+app/.classpath
+app/.c9/
+app/*.launch
+app/.settings/
+app/*.sublime-workspace
+
+# IDE - VSCode
+app/.vscode/*
+!app/.vscode/settings.json
+!app/.vscode/tasks.json
+!app/.vscode/launch.json
+!app/.vscode/extensions.json
+app/.history/*
+
+# System Files
+app/.DS_Store
+app/Thumbs.db
+
+# Log files
+app/npm-debug.log*
+app/yarn-debug.log*
+app/yarn-error.log*
+
+# Python virtualenv
+app/.venv
+app/venv
+
+# SQLite database
+app/db.sqlite3

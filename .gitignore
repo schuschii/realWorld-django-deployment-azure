@@ -1,7 +1,6 @@
 #env
 **/.env
 
-
 # Terraform
 terraform/.terraform/
 terraform/*.tfstate
@@ -10,7 +9,6 @@ terraform/*.tfstate.*.backup
 terraform/.terraform.lock.hcl
 terraform/keys/azure_id_rsa
 terraform/keys/azure_id_rsa.pub
-
 
 # Django / Frontend dependencies
 app/node_modules

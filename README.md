@@ -10,3 +10,13 @@ get the subscription ID you want to us from Azure add to .env
 
 3. Still in terraform folder add chmod +x setup.sh 
 run it ./setup.sh
+
+4. Run Terraform
+Once .env is fully populated
+Make start.sh file executable
+chmod +x ./start.sh
+./start.sh
+
+5. Stop Terraform 
+chmod +x ./stop.sh
+./stop.sh

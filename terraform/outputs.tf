@@ -67,3 +67,7 @@ output "app_gw_public_ip" {
   value = module.app_gateway.app_gw_public_ip
 }
 
+# Postgres module
+output "postgres_fqdn" {
+  value = module.postgres.postgres_fqdn
+}

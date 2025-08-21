@@ -21,6 +21,7 @@ from django.conf.urls.static import static
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+from django.http import JsonResponse
 
 
 schema_view = get_schema_view(
@@ -35,12 +36,19 @@ schema_view = get_schema_view(
 
 api_prefix = 'api'
 
+# minimal health view
+def health(request):
+    return JsonResponse({"status": "ok"})
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-redoc'),
     path(f'{api_prefix}/', include('accounts.urls')),
     path(f'{api_prefix}/', include('articles.urls')),
-    path(f'{api_prefix}/', include('comments.urls'))
+    path(f'{api_prefix}/', include('comments.urls')),
+
+    # health endpoint for Azure probe
+    path('health/', health, name='health')
 ]
 
 if settings.DEBUG:  

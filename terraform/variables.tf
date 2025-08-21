@@ -1,3 +1,4 @@
+# Resource group module
 variable "rg_name" {
   description = "Name of the resource group"
   type        = string
@@ -10,6 +11,7 @@ variable "location" {
   default     = "polandcentral"
 }
 
+# Networking module
 variable "vnet_name" {
   description = "Name of the virtual network"
   type        = string
@@ -71,6 +73,7 @@ variable "nsg_name" {
   default     = "private-nsg"
 }
 
+# Bastion module
 variable "bastion_pip_name" {
   description = "Name of the public IP for Azure Bastion"
   type        = string
@@ -83,6 +86,7 @@ variable "bastion_name" {
   default     = "managed-bastion"
 }
 
+# VM module
 variable "vm_name" {
   description = "Name of the virtual machine"
   type        = string
@@ -106,6 +110,7 @@ variable "ssh_public_key" {
   type        = string
 }
 
+# App Gateway module
 variable "app_gw_pip_name" {
   description = "Name of the public IP for Application Gateway"
   type        = string
@@ -118,11 +123,13 @@ variable "app_gw_name" {
   default     = "realworld-app-gw"
 }
 
+# ACR module
 variable "acr_name" {
   type    = string
   default = "realworldacr"
 }
 
+# PostgreSQL module
 variable "postgres_server_name" {
   type    = string
   default = "realworld-postgres"

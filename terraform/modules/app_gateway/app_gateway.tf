@@ -33,7 +33,7 @@ resource "azurerm_application_gateway" "app_gw" {
   }
 
   backend_address_pool {
-    name  = "backend-pool"
+    name         = "backend-pool"
     ip_addresses = [var.vm_private_ip]
   }
 
@@ -43,6 +43,19 @@ resource "azurerm_application_gateway" "app_gw" {
     port                  = 8000
     protocol              = "Http"
     request_timeout       = 30
+    probe_name            = "health-probe"
+  }
+
+  # Health probe for /health
+  probe {
+    name                                      = "health-probe"
+    protocol                                  = "Http"
+    path                                      = "/health/"
+    host                                      = var.vm_private_ip
+    interval                                  = 30
+    timeout                                   = 30
+    unhealthy_threshold                       = 3
+    pick_host_name_from_backend_http_settings = false
   }
 
   http_listener {

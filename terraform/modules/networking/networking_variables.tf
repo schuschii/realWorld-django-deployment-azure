@@ -43,6 +43,7 @@ variable "bastion_subnet_prefixes" {
   type        = list(string)
 }
 
+
 variable "nat_pip_name" {
   description = "Name of the public IP for NAT Gateway"
   type        = string
@@ -57,3 +58,5 @@ variable "nsg_name" {
   description = "Name of the network security group for private subnet"
   type        = string
 }
+
+

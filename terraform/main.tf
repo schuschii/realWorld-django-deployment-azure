@@ -13,19 +13,19 @@ module "resource_group" {
 }
 
 module "networking" {
-  source                  = "./modules/networking"
-  rg_name                 = module.resource_group.rg_name
-  location                = var.location
-  vnet_name               = var.vnet_name
-  vnet_address_space      = var.vnet_address_space
-  public_subnet_name      = var.public_subnet_name
-  public_subnet_prefixes  = var.public_subnet_prefixes
-  private_subnet_name     = var.private_subnet_name
-  private_subnet_prefixes = var.private_subnet_prefixes
-  bastion_subnet_prefixes = var.bastion_subnet_prefixes
-  nat_pip_name            = var.nat_pip_name
-  nat_gateway_name        = var.nat_gateway_name
-  nsg_name                = var.nsg_name
+  source                   = "./modules/networking"
+  rg_name                  = module.resource_group.rg_name
+  location                 = var.location
+  vnet_name                = var.vnet_name
+  vnet_address_space       = var.vnet_address_space
+  public_subnet_name       = var.public_subnet_name
+  public_subnet_prefixes   = var.public_subnet_prefixes
+  private_subnet_name      = var.private_subnet_name
+  private_subnet_prefixes  = var.private_subnet_prefixes
+  bastion_subnet_prefixes  = var.bastion_subnet_prefixes
+  nat_pip_name             = var.nat_pip_name
+  nat_gateway_name         = var.nat_gateway_name
+  nsg_name                 = var.nsg_name
 }
 
 module "bastion" {
@@ -67,12 +67,3 @@ module "acr" {
   vm_resource_id  = module.vm.vm_id
 }
 
-module "postgres" {
-  source               = "./modules/postgres"
-  rg_name              = module.resource_group.rg_name
-  location             = var.location
-  postgres_server_name = var.postgres_server_name
-  nat_public_ip        = module.networking.nat_public_ip
-  vm_principal_id      = module.vm.vm_principal_id
-  vm_resource_id       = module.vm.vm_id
-}

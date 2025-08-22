@@ -29,6 +29,7 @@ resource "azurerm_subnet" "bastion_subnet" {
   address_prefixes     = var.bastion_subnet_prefixes
 }
 
+
 # NAT Gateway for Private Subnet
 resource "azurerm_public_ip" "nat_pip" {
   name                = var.nat_pip_name
@@ -156,3 +157,5 @@ resource "azurerm_subnet_route_table_association" "public_route_assoc" {
   subnet_id      = azurerm_subnet.public_subnet.id
   route_table_id = azurerm_route_table.public_route_table.id
 }
+
+

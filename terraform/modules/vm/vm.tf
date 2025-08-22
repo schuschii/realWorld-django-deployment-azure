@@ -48,4 +48,5 @@ resource "azurerm_virtual_machine" "backend_vm" {
   identity {
     type = "SystemAssigned"
   }
+  depends_on = [azurerm_network_interface.vm_nic]
 }

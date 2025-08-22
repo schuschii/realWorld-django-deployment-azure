@@ -38,7 +38,11 @@ api_prefix = 'api'
 
 # minimal health view
 def health(request):
-    return JsonResponse({"status": "ok"})
+    headers = dict(request.headers)
+    return JsonResponse({
+        "status": "ok",
+        "headers": headers
+    })
 
 urlpatterns = [
     path('admin/', admin.site.urls),

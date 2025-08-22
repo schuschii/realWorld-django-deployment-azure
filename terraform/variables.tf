@@ -129,8 +129,5 @@ variable "acr_name" {
   default = "realworldacr"
 }
 
-# PostgreSQL module
-variable "postgres_server_name" {
-  type    = string
-  default = "realworld-postgres"
-}
+
+

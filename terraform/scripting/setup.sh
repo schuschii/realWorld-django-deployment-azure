@@ -1,14 +1,16 @@
 #!/bin/bash
 set -e
 
+# Go to terraform root (parent of scripting/)
+cd "$(dirname "$0")/.."
+
 # Load .env
 set -a
 # shellcheck disable=SC1091
 source "./.env"
 set +a
 
-
-bash generate_key.sh
+bash ./scripting/generate_key.sh
 
 if [ -z "$ARM_SUBSCRIPTION_ID" ]; then
   echo "SUBSCRIPTION ID is empty. Check your .env!"
@@ -38,5 +40,8 @@ else
   echo "Copy the values above into your .env (ARM_CLIENT_ID, ARM_CLIENT_SECRET, etc.)"
 fi
 
+# Build the Docker image using buildx for linux/amd64 platform
+docker buildx build --platform linux/amd64 -t realworldacr.azurecr.io/realworld-django:latest ../app
 
+# Initialize Terraform
 terraform init

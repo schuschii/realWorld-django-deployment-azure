@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e
 
+# Always work from terraform root (parent of scripting/)
+cd "$(dirname "$0")/.."
+
 # Load .env from terraform folder
 set -a
 # shellcheck disable=SC1091

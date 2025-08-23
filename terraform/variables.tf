@@ -1,3 +1,4 @@
+# Resource group module
 variable "rg_name" {
   description = "Name of the resource group"
   type        = string
@@ -10,6 +11,7 @@ variable "location" {
   default     = "polandcentral"
 }
 
+# Networking module
 variable "vnet_name" {
   description = "Name of the virtual network"
   type        = string
@@ -52,6 +54,17 @@ variable "bastion_subnet_prefixes" {
   default     = ["10.0.3.0/24"]
 }
 
+variable "postgres_vm_subnet_name" {
+  description = "PostgreSQL VM subnet name"
+  type        = string
+  default     = "postgres-subnet"
+}
+
+variable "postgres_vm_subnet_prefixes" {
+  description = "PostgreSQL VM subnet address prefixes"
+  type        = list(string)
+  default     = ["10.0.4.0/24"]
+}
 
 variable "nat_pip_name" {
   description = "Name of the public IP for NAT Gateway"
@@ -71,6 +84,7 @@ variable "nsg_name" {
   default     = "private-nsg"
 }
 
+# Bastion module
 variable "bastion_pip_name" {
   description = "Name of the public IP for Azure Bastion"
   type        = string
@@ -83,6 +97,7 @@ variable "bastion_name" {
   default     = "managed-bastion"
 }
 
+# VM module
 variable "vm_name" {
   description = "Name of the virtual machine"
   type        = string
@@ -106,6 +121,34 @@ variable "ssh_public_key" {
   type        = string
 }
 
+# Postgres VM module
+
+variable "postgres_vm_name" {
+  description = "Name of the postgres virtual machine"
+  type        = string
+  default     = "postgres-vm"
+}
+
+variable "postgres_vm_size" {
+  description = "Size of the postgres virtual machine"
+  type        = string
+  default     = "Standard_B1s" # Free-tier compatible
+}
+
+variable "postgres_admin_username" {
+  description = "Admin username for the postgres VM"
+  type        = string
+  default     = "postgresuser"
+}
+
+variable "postgres_vm_private_ip" {
+  description = "Static private IP for PostgreSQL VM"
+  type        = string
+  default     = "10.0.4.4" # Must be in postgres_vm_subnet_prefixes range
+}
+
+
+# App Gateway module
 variable "app_gw_pip_name" {
   description = "Name of the public IP for Application Gateway"
   type        = string
@@ -118,12 +161,11 @@ variable "app_gw_name" {
   default     = "realworld-app-gw"
 }
 
+# ACR module
 variable "acr_name" {
   type    = string
   default = "realworldacr"
 }
 
-variable "postgres_server_name" {
-  type    = string
-  default = "realworld-postgres"
-}
+
+

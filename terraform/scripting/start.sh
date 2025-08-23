@@ -1,5 +1,7 @@
 #!/bin/bash
 set -e
+# Always work from terraform root (parent of scripting/)
+cd "$(dirname "$0")/.."
 
 # ---- Load updated .env values ----
 set -a

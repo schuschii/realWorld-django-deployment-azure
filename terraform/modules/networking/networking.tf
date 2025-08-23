@@ -29,6 +29,53 @@ resource "azurerm_subnet" "bastion_subnet" {
   address_prefixes     = var.bastion_subnet_prefixes
 }
 
+resource "azurerm_subnet" "postgres_vm_subnet" {
+  name                 = var.postgres_vm_subnet_name
+  resource_group_name  = var.rg_name
+  virtual_network_name = azurerm_virtual_network.vnet.name
+  address_prefixes     = var.postgres_vm_subnet_prefixes
+}
+
+resource "azurerm_subnet_nat_gateway_association" "postgres_vm_nat_assoc" {
+  subnet_id      = azurerm_subnet.postgres_vm_subnet.id
+  nat_gateway_id = azurerm_nat_gateway.nat.id
+}
+
+resource "azurerm_network_security_group" "postgres_vm_nsg" {
+  name                = "postgres-vm-nsg"
+  location            = var.location
+  resource_group_name = var.rg_name
+
+  security_rule {
+    name                       = "allow-ssh-from-bastion"
+    priority                   = 100
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "22"
+    source_address_prefix      = var.bastion_subnet_prefixes[0]
+    destination_address_prefix = "*"
+  }
+
+  security_rule {
+    name                       = "allow-postgres-from-private"
+    priority                   = 110
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "5432"
+    source_address_prefix      = var.private_subnet_prefixes[0]
+    destination_address_prefix = "*"
+  }
+}
+
+resource "azurerm_subnet_network_security_group_association" "postgres_vm_nsg_assoc" {
+  subnet_id                 = azurerm_subnet.postgres_vm_subnet.id
+  network_security_group_id = azurerm_network_security_group.postgres_vm_nsg.id
+}
+
 
 # NAT Gateway for Private Subnet
 resource "azurerm_public_ip" "nat_pip" {

@@ -79,9 +79,8 @@ az acr login --name realworldacr
     "name": "systemAssignedIdentity",
     "type": "servicePrincipal"
   }
-# Get access token for PostgreSQL
-export ACCESS_TOKEN=$(az account get-access-token --resource https://ossrdbms-aad.database.windows.net --query accessToken -o tsv)
-#eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IkpZaE
+
+
 # Pull the latest image from Azure Container Registry
 docker pull realworldacr.azurecr.io/realworld-django:latest
 

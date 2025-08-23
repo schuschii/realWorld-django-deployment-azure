@@ -24,6 +24,9 @@ output "public_subnet_id" {
   value = module.networking.public_subnet_id
 }
 
+output "postgres_vm_subnet_id" {
+  value = module.networking.postgres_vm_subnet_id
+}
 
 output "nat_gateway_id" {
   value = module.networking.nat_gateway_id
@@ -62,6 +65,13 @@ output "vm_private_ip" {
 output "vm_principal_id" {
   value = module.vm.vm_principal_id
 }
+
+# postgres VM module
+output "postgres_vm_id" {
+  value = module.postgres_vm.postgres_vm_id
+}
+
+
 
 # App Gateway module
 output "app_gw_public_ip" {

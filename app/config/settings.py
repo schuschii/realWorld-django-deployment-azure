@@ -94,11 +94,9 @@ DATABASES = {
         'NAME': 'postgres',
         'USER': 'app_user',
         'PASSWORD': 'SecureAppPassword123!',
-        'HOST': 'realworld-postgres.postgres.database.azure.com',
+        'HOST': '10.0.4.4',
         'PORT': '5432',
-        'OPTIONS': {
-            'sslmode': 'require',
-        },
+        'OPTIONS': {'sslmode': 'disable'},
     }
 }
 

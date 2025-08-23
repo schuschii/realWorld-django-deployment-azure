@@ -3,7 +3,7 @@ FROM python:3.10-slim-bullseye
 WORKDIR /app
 
 RUN apt-get update \
-    && apt-get install -y libpq-dev \
+    && apt-get install -y libpq-dev postgresql-client curl \
     && apt-get install -y gcc \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*

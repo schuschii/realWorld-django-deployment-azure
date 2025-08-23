@@ -14,6 +14,10 @@ output "public_subnet_id" {
   value = azurerm_subnet.public_subnet.id
 }
 
+output "postgres_vm_subnet_id" {
+  value = azurerm_subnet.postgres_vm_subnet.id
+}
+
 output "nat_gateway_id" {
   value = azurerm_nat_gateway.nat.id
 }

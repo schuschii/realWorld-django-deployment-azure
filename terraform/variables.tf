@@ -54,6 +54,17 @@ variable "bastion_subnet_prefixes" {
   default     = ["10.0.3.0/24"]
 }
 
+variable "postgres_vm_subnet_name" {
+  description = "PostgreSQL VM subnet name"
+  type        = string
+  default     = "postgres-subnet"
+}
+
+variable "postgres_vm_subnet_prefixes" {
+  description = "PostgreSQL VM subnet address prefixes"
+  type        = list(string)
+  default     = ["10.0.4.0/24"]
+}
 
 variable "nat_pip_name" {
   description = "Name of the public IP for NAT Gateway"
@@ -109,6 +120,33 @@ variable "ssh_public_key" {
   description = "SSH public key for the VM"
   type        = string
 }
+
+# postgres vm module
+
+variable "postgres_vm_name" {
+  description = "Name of the postgres virtual machine"
+  type        = string
+  default     = "postgres-vm"
+}
+
+variable "postgres_vm_size" {
+  description = "Size of the postgres virtual machine"
+  type        = string
+  default     = "Standard_B1s" # Free-tier compatible
+}
+
+variable "postgres_admin_username" {
+  description = "Admin username for the postgres VM"
+  type        = string
+  default     = "postgresuser"
+}
+
+variable "postgres_vm_private_ip" {
+  description = "Static private IP for PostgreSQL VM"
+  type        = string
+  default     = "10.0.4.4" # Must be in postgres_vm_subnet_prefixes range
+}
+
 
 # App Gateway module
 variable "app_gw_pip_name" {

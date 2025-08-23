@@ -43,6 +43,15 @@ variable "bastion_subnet_prefixes" {
   type        = list(string)
 }
 
+variable "postgres_vm_subnet_name" {
+  description = "PostgreSQL VM subnet name"
+  type        = string
+}
+
+variable "postgres_vm_subnet_prefixes" {
+  description = "PostgreSQL VM subnet address prefixes"
+  type        = list(string)
+}
 
 variable "nat_pip_name" {
   description = "Name of the public IP for NAT Gateway"

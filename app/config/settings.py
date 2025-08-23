@@ -23,13 +23,20 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-2jr-1j1%i(%pqej_8_ujp9l2n1vl%^i9y390o^n&nj_(z8!+ke'
 
-# SECURITY WARNING: don't run with debug turned on in production!
+# Only for testing/dev behind a trusted proxy (App Gateway)
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+# Use your App Gateway's public hostname or IP
+ALLOWED_HOSTS = ['*']  # or ['your-app-gateway-ip-or-domain']
 
+# Disable HTTPS enforcement from proxy since traffic is HTTP
+SECURE_PROXY_SSL_HEADER = None
+
+# Optional: still use forwarded host headers if you want
 USE_X_FORWARDED_HOST = True
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# If you use CSRF protection, allow HTTP from this host
+CSRF_TRUSTED_ORIGINS = ['http://74.248.145.7']
 
 # Application definition
 

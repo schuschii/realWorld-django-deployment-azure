@@ -35,6 +35,7 @@ resource "azurerm_virtual_machine" "postgres_vm" {
   os_profile {
     computer_name  = var.postgres_vm_name
     admin_username = var.postgres_admin_username
+    custom_data = filebase64("${path.root}/scripting/postgres-init.sh")
   }
 
   os_profile_linux_config {

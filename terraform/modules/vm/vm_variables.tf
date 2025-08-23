@@ -11,20 +11,17 @@ variable "private_subnet_id" {
 }
 
 variable "vm_name" {
-  type    = string
-  default = "backend-vm"
+  type = string
 }
 
 variable "vm_size" {
-  type    = string
-  default = "Standard_B1s"
+  type = string
 }
 
 variable "admin_username" {
-  type    = string
-  default = "azureuser"
+  type = string
 }
 
 variable "ssh_public_key" {
-     type = string 
+  type = string
 }

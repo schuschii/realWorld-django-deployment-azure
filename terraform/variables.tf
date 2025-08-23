@@ -121,7 +121,7 @@ variable "ssh_public_key" {
   type        = string
 }
 
-# postgres vm module
+# Postgres VM module
 
 variable "postgres_vm_name" {
   description = "Name of the postgres virtual machine"

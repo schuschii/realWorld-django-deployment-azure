@@ -53,7 +53,7 @@ module "vm" {
 module "postgres_vm" {
   source                  = "./modules/postgres_vm"
   rg_name                 = module.resource_group.rg_name
-  ssh_public_key          = file("${path.module}/keys/azure_id_rsa.pub") # Use the same SSH key as the main VM - CAN admin user be different?
+  ssh_public_key          = file("${path.module}/keys/azure_id_rsa.pub")
   location                = var.location
   postgres_vm_name        = var.postgres_vm_name
   postgres_vm_size        = var.postgres_vm_size

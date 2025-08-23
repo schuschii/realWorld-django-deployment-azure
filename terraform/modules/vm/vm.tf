@@ -34,6 +34,7 @@ resource "azurerm_virtual_machine" "backend_vm" {
   os_profile {
     computer_name  = var.vm_name
     admin_username = var.admin_username
+    custom_data = filebase64("${path.root}/scripting/backend-init.sh")
   }
 
   os_profile_linux_config {

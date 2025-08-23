@@ -58,18 +58,6 @@ resource "azurerm_application_gateway" "app_gw" {
     pick_host_name_from_backend_http_settings = false
   }
 
-  # Health probe for /swagger
-  probe {
-    name                                      = "swagger-probe"
-    protocol                                  = "Http"
-    path                                      = "/swagger/"
-    host                                      = var.vm_private_ip
-    interval                                  = 30
-    timeout                                   = 30
-    unhealthy_threshold                       = 3
-    pick_host_name_from_backend_http_settings = false
-  }
-
 
   http_listener {
     name                           = "http-listener"

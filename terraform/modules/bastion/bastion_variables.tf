@@ -8,12 +8,10 @@ variable "location" {
 
 variable "bastion_pip_name" {
   type    = string
-  default = "bastion-pip"
 }
 
 variable "bastion_name" {
   type    = string
-  default = "managed-bastion"
 }
 
 variable "bastion_subnet_id" { 

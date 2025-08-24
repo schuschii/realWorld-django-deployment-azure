@@ -40,8 +40,6 @@ else
   echo "Copy the values above into your .env (ARM_CLIENT_ID, ARM_CLIENT_SECRET, etc.)"
 fi
 
-# Build the Docker image using buildx for linux/amd64 platform
-docker buildx build --platform linux/amd64 -t realworldacr.azurecr.io/realworld-django:latest ../app
 
 # Initialize Terraform
 terraform init

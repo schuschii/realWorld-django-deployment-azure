@@ -1,6 +1,9 @@
 #env
 **/.env
 
+# Mac system files
+.DS_Store
+
 # Terraform
 terraform/.terraform/
 terraform/*.tfstate

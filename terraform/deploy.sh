@@ -6,8 +6,12 @@ cd "$(dirname "$0")/../app"
 
 az login --identity
 
-# Push the Docker image to Azure Container Registry         
-# docker buildx build --platform linux/amd64 -t realworldacr.azurecr.io/realworld-django:latest .           
+# NEED TO GET THE IP OF GATEWAY + Copy it as ENV onto VM???
+
+# In app folder 
+docker buildx build --platform linux/amd64 -t realworldacr.azurecr.io/realworld-django:latest .   
+
+# Push the Docker image to Azure Container Registry                 
 az acr login --name realworldacr
 docker push realworldacr.azurecr.io/realworld-django:latest   
 
@@ -20,10 +24,6 @@ az network bastion ssh \
   --auth-type ssh-key \
   --username postgresuser \
   --ssh-key ./keys/azure_id_rsa
-
-
-
-
 
 
 # SSH into the VM
@@ -40,8 +40,11 @@ az network bastion ssh \
 az acr login --name realworldacr
 docker pull realworldacr.azurecr.io/realworld-django:latest
 
+# Migration
+docker run --rm   --env-file /home/azureuser/.env   realworldacr.azurecr.io/realworld-django:latest   python manage.py migrate
+
 # Run 
-docker run -d -p 8000:8000 --name realworld-django realworldacr.azurecr.io/realworld-django:latest
+docker run -d -p 8000:8000   --name realworld-django   --env-file /home/azureuser/.env   realworldacr.azurecr.io/realworld-django:latest
 
 # test 
 curl -i http://10.0.2.4:8000/health/

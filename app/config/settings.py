@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,22 +22,30 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-2jr-1j1%i(%pqej_8_ujp9l2n1vl%^i9y390o^n&nj_(z8!+ke'
+SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-2jr-1j1%i(%pqej_8_ujp9l2n1vl%^i9y390o^n&nj_(z8!+ke')
 
 # Only for testing/dev behind a trusted proxy (App Gateway)
 DEBUG = False
 
 # Use your App Gateway's public hostname or IP
-ALLOWED_HOSTS = ['*']  # or ['your-app-gateway-ip-or-domain']
+ALLOWED_HOSTS = ['74.248.129.179', 'localhost', '10.0.2.4']
 
 # Disable HTTPS enforcement from proxy since traffic is HTTP
 SECURE_PROXY_SSL_HEADER = None
 
 # Optional: still use forwarded host headers if you want
 USE_X_FORWARDED_HOST = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_BROWSER_XSS_FILTER = True
+X_FRAME_OPTIONS = 'DENY'
+CSRF_COOKIE_SECURE = False  # Set to True if HTTPS is enabled
+SESSION_COOKIE_SECURE = False
 
 # If you use CSRF protection, allow HTTP from this host
-CSRF_TRUSTED_ORIGINS = ['http://74.248.145.7']
+CSRF_TRUSTED_ORIGINS = ['http://74.248.129.179']
+
+# LOGIN URL for @login_required decorator
+LOGIN_URL = '/admin/login/'
 
 # Application definition
 
@@ -171,6 +180,20 @@ SIMPLE_JWT = {
 
 STORAGES = {
     'staticfiles': {
-        'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage',
+        'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage', # CompressedStaticFilesStorage
+    },
+}
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'ERROR',  # change to DEBUG for debugging
     },
 }

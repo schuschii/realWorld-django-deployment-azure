@@ -28,6 +28,20 @@ curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 
 # Install postgres client
 sudo apt-get install -y postgresql-client
+ 
+# Ensure .env is not a directory
+if [ -d /home/azureuser/.env ]; then
+    sudo rm -rf /home/azureuser/.env
+fi
 
-# 🔄 Reboot to apply group membership changes
+# Create .env with SECRET_KEY if missing
+if [ ! -f /home/azureuser/.env ]; then
+    echo "SECRET_KEY=$(openssl rand -base64 32)" | sudo tee /home/azureuser/.env > /dev/null
+fi
+
+# Set ownership and permissions
+sudo chown azureuser:azureuser /home/azureuser/.env
+sudo chmod 600 /home/azureuser/.env
+
+# Reboot to apply group membership changes
 sudo reboot

@@ -8,11 +8,9 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-
 RUN pip install --upgrade pip 
 
 COPY ./requirements.txt .
-
 RUN pip install -r requirements.txt 
 
 COPY . .
@@ -20,6 +18,9 @@ COPY . .
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
+# Collect static files during build, to ignore missing .map files add --ignore="*.map"
+RUN python manage.py collectstatic --noinput 
+
 EXPOSE 8000
 
-CMD ["python3", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "config.wsgi:application"]
